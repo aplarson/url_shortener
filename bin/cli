@@ -25,7 +25,8 @@ class Interface
   def create_short_url
     puts "Type in the long url"
     long_url = gets.chomp
-    ShortUrl.create_for_user_and_long_url!(@user, long_url)
+    short = ShortUrl.create_for_user_and_long_url!(@user, long_url)
+    puts short.short_url
   end
   
   def visit_short_url
