@@ -1,2 +1,1 @@
-url_shortener
-=============
+URL shortener created in Rails
