@@ -1,0 +1,42 @@
+class Interface
+  
+  def self.launch
+    i = Interface.new
+    i.sign_in
+    if i.option == '0'
+      i.create_short_url
+    else
+      i.visit_short_url
+    end
+  end
+
+
+  def sign_in
+    puts "Enter your email"
+    @user = User.find_by(:email => gets.chomp)
+  end
+  
+  def option
+    puts "0. Create short url"
+    puts "1. visit short url"
+    gets.chomp
+  end
+  
+  def create_short_url
+    puts "Type in the long url"
+    long_url = gets.chomp
+    ShortUrl.create_for_user_and_long_url!(@user, long_url)
+  end
+  
+  def visit_short_url
+    puts "Type in the short url"
+    short_url = gets.chomp
+    url = ShortUrl.find_by(:short_url => short_url)
+    Visit.record_visit!(@user, url)
+    Launchy.open(url.long_url)
+  end
+  
+  
+end
+
+Interface.launch
