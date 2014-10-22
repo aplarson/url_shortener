@@ -11,5 +11,5 @@
 #
 
 class ShortUrl < ActiveRecord::Base
-
+  validates :short_url, :long_url, :submitter_id, :presence => true
 end
