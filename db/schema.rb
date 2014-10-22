@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141022223309) do
+ActiveRecord::Schema.define(version: 20141022225644) do
 
   create_table "short_urls", force: true do |t|
     t.string   "long_url"
@@ -29,6 +29,15 @@ ActiveRecord::Schema.define(version: 20141022223309) do
   end
 
   add_index "tags", ["tag"], name: "index_tags_on_tag", unique: true
+
+  create_table "url_tags", force: true do |t|
+    t.integer "url_id"
+    t.integer "tag_id"
+  end
+
+  add_index "url_tags", ["tag_id"], name: "index_url_tags_on_tag_id"
+  add_index "url_tags", ["url_id", "tag_id"], name: "index_url_tags_on_url_id_and_tag_id", unique: true
+  add_index "url_tags", ["url_id"], name: "index_url_tags_on_url_id"
 
   create_table "users", force: true do |t|
     t.string   "email"

@@ -37,6 +37,19 @@ class ShortUrl < ActiveRecord::Base
     :source => :visitor
   )
   
+  has_many(
+    :url_tags,
+    :class_name => "UrlTag",
+    :foreign_key => :url_id,
+    :primary_key => :id
+  )
+  
+  has_many(
+    :tags,
+    :through => :url_tags,
+    :source => :tag
+  )
+  
   def self.random_code
     code = SecureRandom.base64(12)
     code = SecureRandom.base64(12) while ShortUrl.exists?(:short_url => code)
