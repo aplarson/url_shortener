@@ -13,7 +13,12 @@ class Interface
 
   def sign_in
     puts "Enter your email"
-    @user = User.find_by(:email => gets.chomp)
+    email = gets.chomp
+    @user = User.find_by(:email => email)
+    if @user.nil?
+      @user = User.create!(:email => email)
+      puts "Welcome to the url shortener!"
+    end
   end
   
   def option
@@ -37,6 +42,9 @@ class Interface
     Launchy.open(url.long_url)
   end
   
+  def create_user(email)
+    User.create!(:email => email)
+  end
   
 end
 
