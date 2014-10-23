@@ -65,28 +65,26 @@ class ShortUrl < ActiveRecord::Base
   end
   
   def num_clicks
-    visits.select(:visitor_id).count
+    visits.count
   end
   
   def num_uniques
-    visitors.select(:visitor_id).count
+    visitors.count
   end
   
   def num_recent_uniques
-    visitors
-      .select(:visitor_id)
-      .where("visits.created_at > ?", 10.minutes.ago).count
+    visitors.where("visits.created_at > ?", 10.minutes.ago).count
   end
   
   private
   def users_cannot_spam
-    recent_submissions =  User.find(submitter_id)
+    recent_submissions = User.find(submitter_id)
                              .submitted_urls
                              .where("short_urls.created_at > ?", 
                                     1.minutes.ago)
                              .count
-    if recent_submissions > 5
-      errors[:spam] << "can't submit more than 5 urls in one minute"
+    if recent_submissions > 4
+      errors[:spam] << "is submitting more than 5 urls in one minute"
     end
         
   end
