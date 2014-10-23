@@ -41,11 +41,6 @@ class Interface
     Visit.record_visit!(@user, url)
     Launchy.open(url.long_url)
   end
-  
-  def create_user(email)
-    User.create!(:email => email)
-  end
-  
 end
 
 Interface.launch
