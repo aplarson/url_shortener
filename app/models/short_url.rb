@@ -77,6 +77,7 @@ class ShortUrl < ActiveRecord::Base
   end
   
   private
+  
   def users_cannot_spam
     recent_submissions = User.find(submitter_id)
                              .submitted_urls
